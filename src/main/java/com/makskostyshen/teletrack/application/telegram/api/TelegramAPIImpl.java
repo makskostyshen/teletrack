@@ -1,9 +1,9 @@
-package com.makskostyshen.teletrack.controller.telegram;
+package com.makskostyshen.teletrack.application.telegram.api;
 
 import com.makskostyshen.teletrack.config.TDLibParameters;
-import com.makskostyshen.teletrack.dto.AuthenticationCodeDto;
-import com.makskostyshen.teletrack.dto.AuthenticationPhoneDto;
-import com.makskostyshen.teletrack.dto.ForwardMessageDto;
+import com.makskostyshen.teletrack.port.rest.dto.AuthenticationCodeDto;
+import com.makskostyshen.teletrack.port.rest.dto.AuthenticationPhoneDto;
+import com.makskostyshen.teletrack.application.model.ForwardMessage;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.drinkless.tdlib.Client;
@@ -42,8 +42,8 @@ public class TelegramAPIImpl implements TelegramAPI {
     }
 
     @Override
-    public void sendForwardMessageRequest(ForwardMessageDto forwardMessageDto) {
-        send(TelegramAPIMapper.I.map(forwardMessageDto));
+    public void sendForwardMessageRequest(ForwardMessage forwardMessage) {
+        send(TelegramAPIMapper.I.map(forwardMessage));
     }
 
     private void send(final TdApi.Function<?> function) {

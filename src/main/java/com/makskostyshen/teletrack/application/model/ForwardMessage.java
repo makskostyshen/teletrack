@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.dto;
+package com.makskostyshen.teletrack.application.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ForwardMessageDto {
+public class ForwardMessage {
     private Long toChatId;
     private Long fromChatId;
     private Long messageThreadId;

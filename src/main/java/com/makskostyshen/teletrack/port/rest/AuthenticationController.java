@@ -1,9 +1,9 @@
-package com.makskostyshen.teletrack.controller.rest;
+package com.makskostyshen.teletrack.port.rest;
 
-import com.makskostyshen.teletrack.controller.telegram.TelegramAPI;
-import com.makskostyshen.teletrack.dto.AuthenticationCodeDto;
-import com.makskostyshen.teletrack.dto.AuthenticationPhoneDto;
-import com.makskostyshen.teletrack.service.model.TelegramApplicationProperties;
+import com.makskostyshen.teletrack.application.telegram.api.TelegramAPI;
+import com.makskostyshen.teletrack.port.rest.dto.AuthenticationCodeDto;
+import com.makskostyshen.teletrack.port.rest.dto.AuthenticationPhoneDto;
+import com.makskostyshen.teletrack.application.model.TelegramApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

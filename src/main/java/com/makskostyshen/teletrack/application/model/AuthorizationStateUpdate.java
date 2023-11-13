@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.dto;
+package com.makskostyshen.teletrack.application.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationCodeDto {
-    private String code;
+public class AuthorizationStateUpdate implements TelegramUpdate {
+    private AuthorizationState state;
 }

@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.dto;
+package com.makskostyshen.teletrack.port.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

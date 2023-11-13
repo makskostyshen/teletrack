@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.controller.rest;
+package com.makskostyshen.teletrack.port.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,10 +1,10 @@
-package com.makskostyshen.teletrack.controller.telegram;
+package com.makskostyshen.teletrack.application.telegram.api;
 
 import com.makskostyshen.teletrack.config.TDLibParameters;
-import com.makskostyshen.teletrack.dto.ForwardMessageDto;
-import com.makskostyshen.teletrack.service.model.AuthorizationState;
-import com.makskostyshen.teletrack.service.model.AuthorizationStateUpdate;
-import com.makskostyshen.teletrack.service.model.NewMessageUpdate;
+import com.makskostyshen.teletrack.application.model.ForwardMessage;
+import com.makskostyshen.teletrack.application.model.AuthorizationState;
+import com.makskostyshen.teletrack.application.model.AuthorizationStateUpdate;
+import com.makskostyshen.teletrack.application.model.NewMessageUpdate;
 import lombok.extern.slf4j.Slf4j;
 import org.drinkless.tdlib.TdApi;
 import org.mapstruct.Mapper;
@@ -45,8 +45,8 @@ public abstract class TelegramAPIMapper {
     }
 
     @Mapping(target = "chatId", source = "toChatId")
-    @Mapping(target = "messageIds", expression = "java(new long[]{forwardMessageDto.getMessageId()})")
-    public abstract TdApi.ForwardMessages map(ForwardMessageDto forwardMessageDto);
+    @Mapping(target = "messageIds", expression = "java(new long[]{forwardMessage.getMessageId()})")
+    public abstract TdApi.ForwardMessages map(ForwardMessage forwardMessage);
 
     protected String map(final TdApi.MessageContent content) {
         long[] longs = {1L};

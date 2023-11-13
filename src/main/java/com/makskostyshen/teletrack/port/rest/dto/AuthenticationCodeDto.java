@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.service.model;
+package com.makskostyshen.teletrack.port.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorizationStateUpdate implements TelegramUpdate {
-    private AuthorizationState state;
+public class AuthenticationCodeDto {
+    private String code;
 }

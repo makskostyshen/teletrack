@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.service.model;
+package com.makskostyshen.teletrack.application.model;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

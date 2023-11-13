@@ -1,8 +1,6 @@
-package com.makskostyshen.teletrack.service.impl;
+package com.makskostyshen.teletrack.application.telegram.update;
 
-import com.makskostyshen.teletrack.controller.telegram.TelegramAPIMapper;
-import com.makskostyshen.teletrack.service.impl.update.UpdateAuthorizationStateProcessor;
-import com.makskostyshen.teletrack.service.impl.update.UpdateNewMessageProcessor;
+import com.makskostyshen.teletrack.application.telegram.api.TelegramAPIMapper;
 import lombok.RequiredArgsConstructor;
 import org.drinkless.tdlib.Client;
 import org.drinkless.tdlib.TdApi;
@@ -11,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class DelegatingResultHandler implements Client.ResultHandler {
-    private final UpdateAuthorizationStateProcessor updateAuthorizationStateProcessor;
-    private final UpdateNewMessageProcessor updateNewMessageProcessor;
+    private final AuthorizationStateUpdateProcessor authorizationStateUpdateProcessor;
+    private final NewMessageUpdateProcessor newMessageUpdateProcessor;
 
     @Override
-    public void onResult(TdApi.Object update) {
+    public void onResult(final TdApi.Object update) {
 
         if (update.getClass().equals(TdApi.UpdateUserStatus.class)) {
             return;
@@ -24,12 +22,12 @@ public class DelegatingResultHandler implements Client.ResultHandler {
             return;
         }
         if (update.getClass().equals(TdApi.UpdateAuthorizationState.class)) {
-            updateAuthorizationStateProcessor.process(
+            authorizationStateUpdateProcessor.process(
                     TelegramAPIMapper.I.map((TdApi.UpdateAuthorizationState) update)
             );
         }
         if (update.getClass().equals(TdApi.UpdateNewMessage.class)) {
-            updateNewMessageProcessor.process(
+            newMessageUpdateProcessor.process(
                     TelegramAPIMapper.I.map((TdApi.UpdateNewMessage) update)
             );
         }

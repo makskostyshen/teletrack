@@ -1,11 +1,10 @@
-package com.makskostyshen.teletrack.service.impl.update;
+package com.makskostyshen.teletrack.application.telegram.update;
 
+import com.makskostyshen.teletrack.application.model.AuthorizationState;
+import com.makskostyshen.teletrack.application.model.AuthorizationStateUpdate;
 import com.makskostyshen.teletrack.config.TDLibParameters;
-import com.makskostyshen.teletrack.controller.telegram.TelegramAPI;
-import com.makskostyshen.teletrack.service.api.update.TelegramUpdateProcessor;
-import com.makskostyshen.teletrack.service.model.AuthorizationState;
-import com.makskostyshen.teletrack.service.model.AuthorizationStateUpdate;
-import com.makskostyshen.teletrack.service.model.TelegramApplicationProperties;
+import com.makskostyshen.teletrack.application.telegram.api.TelegramAPI;
+import com.makskostyshen.teletrack.application.model.TelegramApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class UpdateAuthorizationStateProcessor implements TelegramUpdateProcessor<AuthorizationStateUpdate> {
+public class AuthorizationStateUpdateProcessor implements TelegramUpdateProcessor<AuthorizationStateUpdate> {
     private final TelegramApplicationProperties properties;
     private final TelegramAPI telegramAPI;
     private final TDLibParameters tdLibParameters;

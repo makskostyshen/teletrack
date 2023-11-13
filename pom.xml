@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.makskostyshen</groupId>
 	<artifactId>teletrack</artifactId>
@@ -41,17 +41,17 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>telegram-library</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>1.5.3.Final</version>
 		</dependency>
 
+		<!--This dependency is needed to be built locally-->
+		<dependency>
+			<groupId>com.teletrack</groupId>
+			<artifactId>telegram-library</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -61,8 +61,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<source>17</source> <!-- depending on your project -->
-					<target>17</target> <!-- depending on your project -->
+					<source>17</source>
+					<target>17</target>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
