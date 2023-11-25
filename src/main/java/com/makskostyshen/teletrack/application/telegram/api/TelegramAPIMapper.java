@@ -1,10 +1,11 @@
 package com.makskostyshen.teletrack.application.telegram.api;
 
+import com.makskostyshen.teletrack.application.model.*;
+import com.makskostyshen.teletrack.application.model.update.AuthorizationStateUpdate;
+import com.makskostyshen.teletrack.application.model.Message;
+import com.makskostyshen.teletrack.application.model.update.NewChatUpdate;
+import com.makskostyshen.teletrack.application.model.update.NewMessageUpdate;
 import com.makskostyshen.teletrack.config.TDLibParameters;
-import com.makskostyshen.teletrack.application.model.ForwardMessage;
-import com.makskostyshen.teletrack.application.model.AuthorizationState;
-import com.makskostyshen.teletrack.application.model.AuthorizationStateUpdate;
-import com.makskostyshen.teletrack.application.model.NewMessageUpdate;
 import lombok.extern.slf4j.Slf4j;
 import org.drinkless.tdlib.TdApi;
 import org.mapstruct.Mapper;
@@ -27,21 +28,41 @@ public abstract class TelegramAPIMapper {
                     TdApi.AuthorizationStateReady.class, AuthorizationState.READY
             );
 
+    private final Map<Class<?>, ChatType> chatTypeRegistry =
+            Map.of(
+                    TdApi.ChatTypePrivate.class, ChatType.PRIVATE,
+                    TdApi.ChatTypeSecret.class, ChatType.SECRET,
+                    TdApi.ChatTypeSupergroup.class, ChatType.SUPERGROUP,
+                    TdApi.ChatTypeBasicGroup.class, ChatType.BASIC_GROUP
+            );
+
     public abstract TdApi.SetTdlibParameters map(TDLibParameters parameters);
 
-    @Mapping(target = "id", source = "message.id")
-    @Mapping(target = "chatId", source = "message.chatId")
-    @Mapping(target = "threadId", source = "message.messageThreadId")
+    @Mapping(target = "threadId", source = "messageThreadId")
     @Mapping(target = "textContent", source = "message.content")
-    public abstract NewMessageUpdate map(TdApi.UpdateNewMessage message);
+    public abstract Message map(TdApi.Message message);
 
-    public AuthorizationStateUpdate map(TdApi.UpdateAuthorizationState state) {
-        return new AuthorizationStateUpdate(
-                authorizationStateRegistry.getOrDefault(
-                        state.authorizationState.getClass(),
-                        AuthorizationState.UNDEFINED)
+    public abstract NewMessageUpdate map(TdApi.UpdateNewMessage updateNewMessage);
+
+    @Mapping(target = "state", source = "authorizationState")
+    public abstract AuthorizationStateUpdate map(TdApi.UpdateAuthorizationState state);
+
+    public AuthorizationState map(final TdApi.AuthorizationState authorizationState) {
+        return authorizationStateRegistry.getOrDefault(
+                authorizationState.getClass(),
+                AuthorizationState.UNDEFINED
         );
+    }
 
+    public abstract NewChatUpdate map(TdApi.UpdateNewChat updateNewChat);
+
+    public abstract Chat map(TdApi.Chat chat);
+
+    public ChatType map(final TdApi.ChatType chatType) {
+        return chatTypeRegistry.getOrDefault(
+                chatType.getClass(),
+                ChatType.UNDEFINED
+        );
     }
 
     @Mapping(target = "chatId", source = "toChatId")
@@ -49,7 +70,6 @@ public abstract class TelegramAPIMapper {
     public abstract TdApi.ForwardMessages map(ForwardMessage forwardMessage);
 
     protected String map(final TdApi.MessageContent content) {
-        long[] longs = {1L};
         if (content.getClass().equals(TdApi.MessageText.class)) {
             return ((TdApi.MessageText) content).text.text;
         }

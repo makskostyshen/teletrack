@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class DelegatingResultHandler implements Client.ResultHandler {
     private final AuthorizationStateUpdateProcessor authorizationStateUpdateProcessor;
     private final NewMessageUpdateProcessor newMessageUpdateProcessor;
+    private final NewChatUpdateProcessor newChatUpdateProcessor;
 
     @Override
     public void onResult(final TdApi.Object update) {
@@ -20,6 +21,11 @@ public class DelegatingResultHandler implements Client.ResultHandler {
         }
         if (update.getClass().equals(TdApi.UpdateUser.class)) {
             return;
+        }
+        if (update.getClass().equals(TdApi.UpdateNewChat.class)) {
+            newChatUpdateProcessor.process(
+                    TelegramAPIMapper.I.map((TdApi.UpdateNewChat) update)
+            );
         }
         if (update.getClass().equals(TdApi.UpdateAuthorizationState.class)) {
             authorizationStateUpdateProcessor.process(

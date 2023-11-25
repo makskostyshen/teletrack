@@ -1,6 +1,7 @@
-package com.makskostyshen.teletrack.port.rest;
+package com.makskostyshen.teletrack.port.rest.controller;
 
 import com.makskostyshen.teletrack.application.telegram.api.TelegramAPI;
+import com.makskostyshen.teletrack.port.rest.RESTPortMapper;
 import com.makskostyshen.teletrack.port.rest.dto.AuthenticationCodeDto;
 import com.makskostyshen.teletrack.port.rest.dto.AuthenticationPhoneDto;
 import com.makskostyshen.teletrack.application.model.TelegramApplicationProperties;
@@ -17,13 +18,13 @@ public class AuthenticationController {
 
     @PostMapping("/phone")
     public ResponseEntity<Void> sendAuthenticationPhoneNumber(final @RequestBody AuthenticationPhoneDto parameters) {
-        telegramAPI.sendAuthenticationPhoneNumber(parameters);
+        telegramAPI.sendAuthenticationPhoneNumber(RESTPortMapper.I.map(parameters));
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/code")
     public ResponseEntity<Void> sendAuthenticationCode(final @RequestBody AuthenticationCodeDto parameters) {
-        telegramAPI.sendAuthenticationCode(parameters);
+        telegramAPI.sendAuthenticationCode(RESTPortMapper.I.map(parameters));
         return ResponseEntity.ok().build();
     }
 

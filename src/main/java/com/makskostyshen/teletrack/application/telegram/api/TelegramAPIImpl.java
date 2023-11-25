@@ -1,9 +1,9 @@
 package com.makskostyshen.teletrack.application.telegram.api;
 
-import com.makskostyshen.teletrack.config.TDLibParameters;
-import com.makskostyshen.teletrack.port.rest.dto.AuthenticationCodeDto;
-import com.makskostyshen.teletrack.port.rest.dto.AuthenticationPhoneDto;
+import com.makskostyshen.teletrack.application.model.AuthenticationCode;
+import com.makskostyshen.teletrack.application.model.AuthenticationPhone;
 import com.makskostyshen.teletrack.application.model.ForwardMessage;
+import com.makskostyshen.teletrack.config.TDLibParameters;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.drinkless.tdlib.Client;
@@ -22,13 +22,13 @@ public class TelegramAPIImpl implements TelegramAPI {
     }
 
     @Override
-    public void sendAuthenticationPhoneNumber(final AuthenticationPhoneDto authenticationPhoneDto) {
-        send(new TdApi.SetAuthenticationPhoneNumber(authenticationPhoneDto.getPhoneNumber(), null));
+    public void sendAuthenticationPhoneNumber(final AuthenticationPhone authenticationPhone) {
+        send(new TdApi.SetAuthenticationPhoneNumber(authenticationPhone.getPhoneNumber(), null));
     }
 
     @Override
-    public void sendAuthenticationCode(final AuthenticationCodeDto authenticationCodeDto) {
-        send(new TdApi.CheckAuthenticationCode(authenticationCodeDto.getCode()));
+    public void sendAuthenticationCode(final AuthenticationCode authenticationCode) {
+        send(new TdApi.CheckAuthenticationCode(authenticationCode.getCode()));
     }
 
     @Override
@@ -38,7 +38,12 @@ public class TelegramAPIImpl implements TelegramAPI {
 
     @Override
     public void sendGetChatsRequest() {
-        client.send(new TdApi.GetChats(), null);
+        client.send(new TdApi.GetChats(new TdApi.ChatListMain(), 10), (var1) -> {
+            System.out.println("here");;
+        });
+        client.send(new TdApi.LoadChats(new TdApi.ChatListMain(), 10), (var1) ->{
+            System.out.println("here");
+        });
     }
 
     @Override

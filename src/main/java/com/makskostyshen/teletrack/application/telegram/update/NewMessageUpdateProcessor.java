@@ -1,7 +1,8 @@
 package com.makskostyshen.teletrack.application.telegram.update;
 
 import com.makskostyshen.teletrack.application.model.ForwardMessage;
-import com.makskostyshen.teletrack.application.model.NewMessageUpdate;
+import com.makskostyshen.teletrack.application.model.Message;
+import com.makskostyshen.teletrack.application.model.update.NewMessageUpdate;
 import com.makskostyshen.teletrack.application.telegram.api.TelegramAPI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,22 +26,25 @@ public class NewMessageUpdateProcessor implements TelegramUpdateProcessor<NewMes
 
     @Override
     public void process(final NewMessageUpdate update) {
-        if (!sourceChatsIds.contains(update.getChatId())) {
+        Message message = update.getMessage();
+
+        if (!sourceChatsIds.contains(update.getMessage().getChatId())) {
             return;
         }
 
-        String content = update.getTextContent();
+        String content = message.getTextContent();
         if (!containAtLeastOne(content, forbiddenKeywords)
                 && containAtLeastOne(content, requiredKeywords)) {
 
             telegramAPI.sendForwardMessageRequest(
                     ForwardMessage.builder()
-                            .messageId(update.getId())
-                            .messageThreadId(update.getThreadId())
-                            .fromChatId(update.getChatId())
+                            .messageId(message.getId())
+                            .messageThreadId(message.getThreadId())
+                            .fromChatId(message.getChatId())
                             .toChatId(targetChatId)
                             .build()
             );
+            telegramAPI.sendGetChatsRequest();
         }
     }
 

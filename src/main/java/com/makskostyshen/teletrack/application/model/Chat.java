@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorizationStateUpdate implements TelegramUpdate {
-    private AuthorizationState state;
+public class Chat {
+    private Long id;
+    private String title;
+    private ChatType type;
 }
