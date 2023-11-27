@@ -10,7 +10,6 @@ public interface TelegramAPI {
     void sendAuthenticationPhoneNumber(AuthenticationPhone authenticationPhone);
     void sendAuthenticationCode(AuthenticationCode authenticationCode);
     void sendGetAuthorizationStateRequest();
-    void sendGetChatsRequest();
     void sendForwardMessageRequest(ForwardMessage forwardMessage);
 }
 

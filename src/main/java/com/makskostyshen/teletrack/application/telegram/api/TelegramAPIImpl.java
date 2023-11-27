@@ -37,16 +37,6 @@ public class TelegramAPIImpl implements TelegramAPI {
     }
 
     @Override
-    public void sendGetChatsRequest() {
-        client.send(new TdApi.GetChats(new TdApi.ChatListMain(), 10), (var1) -> {
-            System.out.println("here");;
-        });
-        client.send(new TdApi.LoadChats(new TdApi.ChatListMain(), 10), (var1) ->{
-            System.out.println("here");
-        });
-    }
-
-    @Override
     public void sendForwardMessageRequest(ForwardMessage forwardMessage) {
         send(TelegramAPIMapper.I.map(forwardMessage));
     }

@@ -44,7 +44,6 @@ public class NewMessageUpdateProcessor implements TelegramUpdateProcessor<NewMes
                             .toChatId(targetChatId)
                             .build()
             );
-            telegramAPI.sendGetChatsRequest();
         }
     }
 
