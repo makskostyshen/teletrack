@@ -10,14 +10,14 @@ import java.util.Set;
 
 @Service
 public class ChatServiceImpl implements ChatService {
-    private final Set<Chat> inMemoryChatStorage = new HashSet<>();
+    private final Set<Chat> inMemoryChatRegistry = new HashSet<>();
     @Override
     public List<Chat> getAll() {
-        return new ArrayList<>(inMemoryChatStorage);
+        return new ArrayList<>(inMemoryChatRegistry);
     }
 
     @Override
     public void add(final Chat chat) {
-        inMemoryChatStorage.add(chat);
+        inMemoryChatRegistry.add(chat);
     }
 }
