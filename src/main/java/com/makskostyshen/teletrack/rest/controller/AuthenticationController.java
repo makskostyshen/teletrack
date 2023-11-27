@@ -1,6 +1,6 @@
 package com.makskostyshen.teletrack.rest.controller;
 
-import com.makskostyshen.teletrack.application.telegram.api.TelegramAPI;
+import com.makskostyshen.teletrack.application.telegram.TelegramAPI;
 import com.makskostyshen.teletrack.rest.RESTPortMapper;
 import com.makskostyshen.teletrack.rest.dto.AuthenticationCodeDto;
 import com.makskostyshen.teletrack.rest.dto.AuthenticationPhoneDto;

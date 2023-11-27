@@ -1,6 +1,6 @@
 package com.makskostyshen.teletrack.config;
 
-import com.makskostyshen.teletrack.application.telegram.api.TelegramAPIImpl;
+import com.makskostyshen.teletrack.application.telegram.TelegramAPIImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.drinkless.tdlib.Client;

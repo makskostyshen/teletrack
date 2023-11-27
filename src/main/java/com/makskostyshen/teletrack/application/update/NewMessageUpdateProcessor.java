@@ -4,7 +4,7 @@ import com.makskostyshen.teletrack.application.message.analyzer.MessageAnalyzer;
 import com.makskostyshen.teletrack.application.model.ForwardMessage;
 import com.makskostyshen.teletrack.application.model.Message;
 import com.makskostyshen.teletrack.application.model.update.NewMessageUpdate;
-import com.makskostyshen.teletrack.application.telegram.api.TelegramAPI;
+import com.makskostyshen.teletrack.application.telegram.TelegramAPI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.application.telegram.api;
+package com.makskostyshen.teletrack.application.telegram;
 
 import com.makskostyshen.teletrack.application.model.AuthenticationCode;
 import com.makskostyshen.teletrack.application.model.AuthenticationPhone;

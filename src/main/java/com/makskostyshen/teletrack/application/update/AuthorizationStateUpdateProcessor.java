@@ -3,7 +3,7 @@ package com.makskostyshen.teletrack.application.update;
 import com.makskostyshen.teletrack.application.model.AuthorizationState;
 import com.makskostyshen.teletrack.application.model.update.AuthorizationStateUpdate;
 import com.makskostyshen.teletrack.config.TDLibParameters;
-import com.makskostyshen.teletrack.application.telegram.api.TelegramAPI;
+import com.makskostyshen.teletrack.application.telegram.TelegramAPI;
 import com.makskostyshen.teletrack.application.model.TelegramApplicationProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

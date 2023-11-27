@@ -1,9 +1,8 @@
-package com.makskostyshen.teletrack.application.telegram.api;
+package com.makskostyshen.teletrack.application.telegram;
 
 import com.makskostyshen.teletrack.application.model.AuthenticationCode;
 import com.makskostyshen.teletrack.application.model.AuthenticationPhone;
 import com.makskostyshen.teletrack.application.model.ForwardMessage;
-import com.makskostyshen.teletrack.application.telegram.TelegramMapper;
 import com.makskostyshen.teletrack.config.TDLibParameters;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

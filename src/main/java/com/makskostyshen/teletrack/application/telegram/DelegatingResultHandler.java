@@ -1,6 +1,5 @@
-package com.makskostyshen.teletrack.application.telegram.handler;
+package com.makskostyshen.teletrack.application.telegram;
 
-import com.makskostyshen.teletrack.application.telegram.TelegramMapper;
 import com.makskostyshen.teletrack.application.update.AuthorizationStateUpdateProcessor;
 import com.makskostyshen.teletrack.application.update.NewChatUpdateProcessor;
 import com.makskostyshen.teletrack.application.update.NewMessageUpdateProcessor;
