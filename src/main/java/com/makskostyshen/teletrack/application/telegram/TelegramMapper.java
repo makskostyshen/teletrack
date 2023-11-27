@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.application.telegram.api;
+package com.makskostyshen.teletrack.application.telegram;
 
 import com.makskostyshen.teletrack.application.model.*;
 import com.makskostyshen.teletrack.application.model.update.AuthorizationStateUpdate;
@@ -17,8 +17,8 @@ import java.util.Map;
 
 @Slf4j
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public abstract class TelegramAPIMapper {
-    public static TelegramAPIMapper I = Mappers.getMapper(TelegramAPIMapper.class);
+public abstract class TelegramMapper {
+    public static TelegramMapper I = Mappers.getMapper(TelegramMapper.class);
 
     private final Map<Class<?>, AuthorizationState> authorizationStateRegistry =
             Map.of(
@@ -76,6 +76,7 @@ public abstract class TelegramAPIMapper {
         if (content.getClass().equals(TdApi.MessagePhoto.class)) {
             return ((TdApi.MessagePhoto) content).caption.text;
         }
+        log.warn("Cannot properly obtain text content from message: {}", content.toString());
         return "";
     }
 }

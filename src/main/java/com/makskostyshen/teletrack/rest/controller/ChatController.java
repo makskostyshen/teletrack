@@ -1,8 +1,8 @@
-package com.makskostyshen.teletrack.port.rest.controller;
+package com.makskostyshen.teletrack.rest.controller;
 
 import com.makskostyshen.teletrack.application.chat.ChatService;
-import com.makskostyshen.teletrack.port.rest.RESTPortMapper;
-import com.makskostyshen.teletrack.port.rest.dto.ChatsDto;
+import com.makskostyshen.teletrack.rest.RESTPortMapper;
+import com.makskostyshen.teletrack.rest.dto.ChatsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

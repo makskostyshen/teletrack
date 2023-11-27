@@ -3,6 +3,7 @@ package com.makskostyshen.teletrack.application.telegram.api;
 import com.makskostyshen.teletrack.application.model.AuthenticationCode;
 import com.makskostyshen.teletrack.application.model.AuthenticationPhone;
 import com.makskostyshen.teletrack.application.model.ForwardMessage;
+import com.makskostyshen.teletrack.application.telegram.TelegramMapper;
 import com.makskostyshen.teletrack.config.TDLibParameters;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class TelegramAPIImpl implements TelegramAPI {
 
     @Override
     public void sendTDLibParameters(final TDLibParameters parameters) {
-        send(TelegramAPIMapper.I.map(parameters));
+        send(TelegramMapper.I.map(parameters));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class TelegramAPIImpl implements TelegramAPI {
 
     @Override
     public void sendForwardMessageRequest(ForwardMessage forwardMessage) {
-        send(TelegramAPIMapper.I.map(forwardMessage));
+        send(TelegramMapper.I.map(forwardMessage));
     }
 
     private void send(final TdApi.Function<?> function) {

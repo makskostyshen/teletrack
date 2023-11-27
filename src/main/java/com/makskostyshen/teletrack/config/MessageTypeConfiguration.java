@@ -1,11 +1,7 @@
 package com.makskostyshen.teletrack.config;
 
-import com.makskostyshen.teletrack.application.exception.MessageAnalyzerException;
-import com.makskostyshen.teletrack.application.message.analyzer.criterion.AndCriterion;
-import com.makskostyshen.teletrack.application.message.analyzer.criterion.ContainsTextCriterion;
-import com.makskostyshen.teletrack.application.message.analyzer.criterion.NotCriterion;
-import com.makskostyshen.teletrack.application.message.analyzer.criterion.OrCriterion;
-import com.makskostyshen.teletrack.application.message.type.MessageTypeParser;
+import com.makskostyshen.teletrack.application.exception.MessageTypeParsingException;
+import com.makskostyshen.teletrack.application.message.type.parser.MessageTypeParser;
 import com.makskostyshen.teletrack.application.message.type.MessageTypeService;
 import com.makskostyshen.teletrack.application.model.MessageType;
 import jakarta.annotation.PostConstruct;
@@ -22,7 +18,7 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class MessageTypeConfiguration {
-    private final MessageTypeParser parser;
+    private final MessageTypeParser messageTypeParser;
     private final MessageTypeService messageTypeService;
 
     @Value("${app.message.types.configFile}")
@@ -31,29 +27,8 @@ public class MessageTypeConfiguration {
     @PostConstruct
     public void populateMessageTypes() {
         String content = readFileContent(configFilePath);
-
-        MessageType messageType = MessageType.builder()
-                .name("work-search-message-type")
-                .sourceChatsIds(List.of(-1001236684673L,-1001190647252L,-1001189271969L,-1001247711182L,389528139L,592271275L,417467095L))
-                .targetChatsIds(List.of(-1002084684686L))
-                .criterion(
-                        new AndCriterion(
-                                List.of(
-                                        new ContainsTextCriterion("java"),
-                                        new NotCriterion(
-                                                new OrCriterion(
-                                                        List.of(
-                                                                new ContainsTextCriterion("#outstaff"),
-                                                                new ContainsTextCriterion("#available")
-                                                        )
-                                                )
-                                        )
-                                )
-                        )
-                )
-                .build();
-
-        messageTypeService.add(messageType);
+        List<MessageType> messageTypes = messageTypeParser.parseMultiple(content);
+        messageTypeService.addAll(messageTypes);
     }
 
     private String readFileContent(final String filePath) {
@@ -61,7 +36,7 @@ public class MessageTypeConfiguration {
             Path path = Paths.get(filePath);
             return new String(Files.readAllBytes(path));
         } catch (IOException e) {
-            throw new MessageAnalyzerException("failed to parse message analyzer file");
+            throw new MessageTypeParsingException("failed to parse message types file", e);
         }
     }
 }

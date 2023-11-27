@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.port.rest.dto;
+package com.makskostyshen.teletrack.rest.dto;
 
 import com.makskostyshen.teletrack.application.model.ChatType;
 import lombok.Data;

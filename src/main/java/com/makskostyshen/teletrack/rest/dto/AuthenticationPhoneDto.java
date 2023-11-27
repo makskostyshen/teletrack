@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.port.rest.dto;
+package com.makskostyshen.teletrack.rest.dto;
 
 import lombok.Data;
 

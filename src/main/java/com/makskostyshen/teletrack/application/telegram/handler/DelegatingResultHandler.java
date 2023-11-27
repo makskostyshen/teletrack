@@ -1,6 +1,6 @@
 package com.makskostyshen.teletrack.application.telegram.handler;
 
-import com.makskostyshen.teletrack.application.telegram.api.TelegramAPIMapper;
+import com.makskostyshen.teletrack.application.telegram.TelegramMapper;
 import com.makskostyshen.teletrack.application.update.AuthorizationStateUpdateProcessor;
 import com.makskostyshen.teletrack.application.update.NewChatUpdateProcessor;
 import com.makskostyshen.teletrack.application.update.NewMessageUpdateProcessor;
@@ -27,17 +27,17 @@ public class DelegatingResultHandler implements Client.ResultHandler {
         }
         if (update.getClass().equals(TdApi.UpdateNewChat.class)) {
             newChatUpdateProcessor.process(
-                    TelegramAPIMapper.I.map((TdApi.UpdateNewChat) update)
+                    TelegramMapper.I.map((TdApi.UpdateNewChat) update)
             );
         }
         if (update.getClass().equals(TdApi.UpdateAuthorizationState.class)) {
             authorizationStateUpdateProcessor.process(
-                    TelegramAPIMapper.I.map((TdApi.UpdateAuthorizationState) update)
+                    TelegramMapper.I.map((TdApi.UpdateAuthorizationState) update)
             );
         }
         if (update.getClass().equals(TdApi.UpdateNewMessage.class)) {
             newMessageUpdateProcessor.process(
-                    TelegramAPIMapper.I.map((TdApi.UpdateNewMessage) update)
+                    TelegramMapper.I.map((TdApi.UpdateNewMessage) update)
             );
         }
     }
