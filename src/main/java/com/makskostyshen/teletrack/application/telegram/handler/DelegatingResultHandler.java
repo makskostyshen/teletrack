@@ -1,6 +1,9 @@
-package com.makskostyshen.teletrack.application.telegram.update;
+package com.makskostyshen.teletrack.application.telegram.handler;
 
 import com.makskostyshen.teletrack.application.telegram.api.TelegramAPIMapper;
+import com.makskostyshen.teletrack.application.update.AuthorizationStateUpdateProcessor;
+import com.makskostyshen.teletrack.application.update.NewChatUpdateProcessor;
+import com.makskostyshen.teletrack.application.update.NewMessageUpdateProcessor;
 import lombok.RequiredArgsConstructor;
 import org.drinkless.tdlib.Client;
 import org.drinkless.tdlib.TdApi;

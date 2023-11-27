@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.application.telegram.update;
+package com.makskostyshen.teletrack.application.update;
 
 import com.makskostyshen.teletrack.application.model.ForwardMessage;
 import com.makskostyshen.teletrack.application.model.Message;

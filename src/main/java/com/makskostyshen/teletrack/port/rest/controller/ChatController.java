@@ -1,6 +1,6 @@
 package com.makskostyshen.teletrack.port.rest.controller;
 
-import com.makskostyshen.teletrack.application.telegram.chat.InMemoryChatService;
+import com.makskostyshen.teletrack.application.chat.ChatService;
 import com.makskostyshen.teletrack.port.rest.RESTPortMapper;
 import com.makskostyshen.teletrack.port.rest.dto.ChatsDto;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/chats")
 @RequiredArgsConstructor
 public class ChatController {
-    private final InMemoryChatService inMemoryChatService;
+    private final ChatService chatService;
 
-    @GetMapping("/in-memory")
+    @GetMapping
     public ResponseEntity<ChatsDto> getInMemoryChats() {
         return ResponseEntity.ok(
                 new ChatsDto(
-                        inMemoryChatService.getChats()
+                        chatService.getAll()
                                 .stream()
                                 .map(RESTPortMapper.I::map)
                                 .toList()
