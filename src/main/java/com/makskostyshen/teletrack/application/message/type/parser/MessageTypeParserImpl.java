@@ -51,6 +51,7 @@ public class MessageTypeParserImpl implements MessageTypeParser {
                 .sourceChatsIds(parsingModel.getSourceChatsIds())
                 .targetChatsIds(parsingModel.getTargetChatsIds())
                 .criterion(criterionParser.parseCriterion(parsingModel.getCriterion()))
+                .criterionRepresentation(parsingModel.getCriterion())
                 .build();
     }
 }

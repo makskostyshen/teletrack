@@ -1,5 +1,6 @@
 package com.makskostyshen.teletrack.application.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.makskostyshen.teletrack.application.message.analyzer.criterion.Criterion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,4 +18,5 @@ public class MessageType {
     private List<Long> targetChatsIds;
     private List<Long> sourceChatsIds;
     private Criterion criterion;
+    private JsonNode criterionRepresentation;
 }

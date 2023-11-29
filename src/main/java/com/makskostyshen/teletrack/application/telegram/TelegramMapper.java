@@ -76,6 +76,9 @@ public abstract class TelegramMapper {
         if (content.getClass().equals(TdApi.MessagePhoto.class)) {
             return ((TdApi.MessagePhoto) content).caption.text;
         }
+        if (content.getClass().equals(TdApi.MessageVideo.class)) {
+            return ((TdApi.MessageVideo) content).caption.text;
+        }
         log.warn("Cannot properly obtain text content from message: {}", content.toString());
         return "";
     }

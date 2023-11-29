@@ -1,8 +1,8 @@
 package com.makskostyshen.teletrack.config;
 
 import com.makskostyshen.teletrack.application.exception.MessageTypeParsingException;
-import com.makskostyshen.teletrack.application.message.type.parser.MessageTypeParser;
 import com.makskostyshen.teletrack.application.message.type.MessageTypeService;
+import com.makskostyshen.teletrack.application.message.type.parser.MessageTypeParser;
 import com.makskostyshen.teletrack.application.model.MessageType;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
