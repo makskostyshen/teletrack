@@ -1,9 +1,9 @@
-package com.makskostyshen.teletrack.config;
+package com.makskostyshen.teletrack.application.file;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.makskostyshen.teletrack.application.exception.MessageTypeParsingException;
-import com.makskostyshen.teletrack.rest.dto.MessageTypeDto;
+import com.makskostyshen.teletrack.application.exception.MessageForwardGroupParsingException;
+import com.makskostyshen.teletrack.rest.dto.MessageForwardGroupDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,22 +14,22 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class MessageTypeFileReaderImpl implements MessageTypeFileReader {
+public class MessageForwardGroupFileReaderImpl implements MessageForwardGroupFileReader {
     private final ObjectMapper objectMapper;
 
     @Override
-    public Optional<List<MessageTypeDto>> read(final String filePath) {
+    public Optional<List<MessageForwardGroupDto>> read(final String filePath) {
         try {
             Path path = Paths.get(filePath);
             String content = new String(Files.readAllBytes(path));
             return Optional.of(
-                    objectMapper.readValue(content, new TypeReference<List<MessageTypeDto>>(){})
+                    objectMapper.readValue(content, new TypeReference<List<MessageForwardGroupDto>>(){})
             );
         } catch (NoSuchFileException | AccessDeniedException e) {
             return Optional.empty();
 
         } catch (IOException e) {
-            throw new MessageTypeParsingException("Failed to load message type configuration file", e);
+            throw new MessageForwardGroupParsingException("Failed to load message type configuration file", e);
         }
     }
 }

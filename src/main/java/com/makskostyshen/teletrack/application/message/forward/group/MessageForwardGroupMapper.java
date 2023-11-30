@@ -1,10 +1,10 @@
-package com.makskostyshen.teletrack.application.message.type;
+package com.makskostyshen.teletrack.application.message.forward.group;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.makskostyshen.teletrack.application.exception.MessageTypeParsingException;
+import com.makskostyshen.teletrack.application.exception.MessageForwardGroupParsingException;
 import com.makskostyshen.teletrack.application.message.analyzer.criterion.*;
-import com.makskostyshen.teletrack.application.model.MessageType;
-import com.makskostyshen.teletrack.rest.dto.MessageTypeDto;
+import com.makskostyshen.teletrack.application.model.MessageForwardGroup;
+import com.makskostyshen.teletrack.rest.dto.MessageForwardGroupDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,24 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
-public abstract class MessageTypeMapper {
-    public static final MessageTypeMapper I = Mappers.getMapper(MessageTypeMapper.class);
-    public MessageTypeDto map(final MessageType messageType) {
-        return MessageTypeDto.builder()
-                .name(messageType.getName())
-                .targetChatsIds(messageType.getTargetChatsIds())
-                .sourceChatsIds(messageType.getSourceChatsIds())
-                .criterion(messageType.getCriterionRepresentation())
+public abstract class MessageForwardGroupMapper {
+    public static final MessageForwardGroupMapper I = Mappers.getMapper(MessageForwardGroupMapper.class);
+    public MessageForwardGroupDto map(final MessageForwardGroup forwardGroup) {
+        return MessageForwardGroupDto.builder()
+                .name(forwardGroup.getName())
+                .targetChatsIds(forwardGroup.getTargetChatsIds())
+                .sourceChatsIds(forwardGroup.getSourceChatsIds())
+                .criterion(forwardGroup.getCriterionRepresentation())
                 .build();
     }
 
-    public MessageType map(final MessageTypeDto messageTypeDto) {
-        return MessageType.builder()
-                .name(messageTypeDto.getName())
-                .sourceChatsIds(messageTypeDto.getSourceChatsIds())
-                .targetChatsIds(messageTypeDto.getTargetChatsIds())
-                .criterion(mapCriterion(messageTypeDto.getCriterion()))
-                .criterionRepresentation(messageTypeDto.getCriterion())
+    public MessageForwardGroup map(final MessageForwardGroupDto forwardGroupDto) {
+        return MessageForwardGroup.builder()
+                .name(forwardGroupDto.getName())
+                .sourceChatsIds(forwardGroupDto.getSourceChatsIds())
+                .targetChatsIds(forwardGroupDto.getTargetChatsIds())
+                .criterion(mapCriterion(forwardGroupDto.getCriterion()))
+                .criterionRepresentation(forwardGroupDto.getCriterion())
                 .build();
     }
 
@@ -51,7 +51,7 @@ public abstract class MessageTypeMapper {
         if (innerNode != null) {
             return mapContainsTextCriteria(innerNode);
         }
-        throw new MessageTypeParsingException(
+        throw new MessageForwardGroupParsingException(
                 String.format("Message type %s cannot be parsed", jsonNode.toPrettyString())
         );
     }

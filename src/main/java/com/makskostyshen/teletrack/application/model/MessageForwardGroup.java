@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageType {
+public class MessageForwardGroup {
     private String name;
     private List<Long> targetChatsIds;
     private List<Long> sourceChatsIds;

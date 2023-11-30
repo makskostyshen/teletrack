@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class MessageTypesDto {
-    private List<MessageTypeDto> messageTypes;
+public class MessageForwardGroupsDto {
+    private List<MessageForwardGroupDto> forwardGroups;
 }

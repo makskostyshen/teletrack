@@ -1,8 +1,8 @@
 package com.makskostyshen.teletrack.application.message.analyzer;
 
-import com.makskostyshen.teletrack.application.message.type.MessageTypeService;
+import com.makskostyshen.teletrack.application.message.forward.group.MessageForwardGroupService;
 import com.makskostyshen.teletrack.application.model.Message;
-import com.makskostyshen.teletrack.application.model.MessageType;
+import com.makskostyshen.teletrack.application.model.MessageForwardGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,17 +12,17 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class MessageAnalyzerImpl implements MessageAnalyzer {
-    private final MessageTypeService messageTypeService;
+    private final MessageForwardGroupService forwardGroupService;
 
     @Override
     public List<Long> getTargetChatsIds(final Message message) {
-        return messageTypeService.getAll().stream()
+        return forwardGroupService.getAll().stream()
                 .filter(
-                        messageType ->
-                                messageType.getSourceChatsIds().contains(message.getChatId())
-                                        && messageType.getCriterion().isSatisfied(message)
+                        MessageForwardGroup ->
+                                MessageForwardGroup.getSourceChatsIds().contains(message.getChatId())
+                                        && MessageForwardGroup.getCriterion().isSatisfied(message)
                 )
-                .map(MessageType::getTargetChatsIds)
+                .map(MessageForwardGroup::getTargetChatsIds)
                 .flatMap(Collection::stream)
                 .toList();
     }
