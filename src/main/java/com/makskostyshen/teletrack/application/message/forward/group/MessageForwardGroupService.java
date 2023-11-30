@@ -7,7 +7,7 @@ import java.util.List;
 public interface MessageForwardGroupService {
     List<MessageForwardGroup> getAll();
 
-    void add(MessageForwardGroup forwardGroup);
+    MessageForwardGroup add(MessageForwardGroup forwardGroup);
 
-    void deleteByName(String name);
+    MessageForwardGroup deleteByName(String name);
 }

@@ -1,5 +1,7 @@
 package com.makskostyshen.teletrack.application.message.forward.group;
 
+import com.makskostyshen.teletrack.application.exception.MessageForwardGroupAlreadyExistsException;
+import com.makskostyshen.teletrack.application.exception.MessageForwardGroupNotFoundException;
 import com.makskostyshen.teletrack.application.model.MessageForwardGroup;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,21 @@ public class MessageForwardGroupServiceImpl implements MessageForwardGroupServic
     }
 
     @Override
-    public void add(final MessageForwardGroup forwardGroup) {
-        inMemoryMessageForwardGroupRegistry.put(forwardGroup.getName(), forwardGroup);
+    public MessageForwardGroup add(final MessageForwardGroup forwardGroup) {
+        if (!inMemoryMessageForwardGroupRegistry.containsKey(forwardGroup.getName())) {
+            inMemoryMessageForwardGroupRegistry.put(forwardGroup.getName(), forwardGroup);
+            return forwardGroup;
+        }
+        throw new MessageForwardGroupAlreadyExistsException(
+                String.format("Could now add message forward group %s: it already exists", forwardGroup.getName()));
     }
 
     @Override
-    public void deleteByName(final String name) {
-        inMemoryMessageForwardGroupRegistry.remove(name);
+    public MessageForwardGroup deleteByName(final String name) {
+        if (inMemoryMessageForwardGroupRegistry.containsKey(name)) {
+            return inMemoryMessageForwardGroupRegistry.remove(name);
+        }
+        throw new MessageForwardGroupNotFoundException(
+                String.format("Could now delete message forward group %s: it is not found", name));
     }
 }

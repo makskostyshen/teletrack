@@ -1,6 +1,5 @@
 package com.makskostyshen.teletrack.rest.controller;
 
-import com.makskostyshen.teletrack.application.message.forward.group.MessageForwardGroupMapper;
 import com.makskostyshen.teletrack.application.message.forward.group.MessageForwardGroupService;
 import com.makskostyshen.teletrack.rest.RESTPortMapper;
 import com.makskostyshen.teletrack.rest.dto.MessageForwardGroupDto;
@@ -27,14 +26,16 @@ public class MessageForwardGroupController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> postNewMessageForwardGroup(@RequestBody final MessageForwardGroupDto forwardGroupDto) {
-        forwardGroupService.add(MessageForwardGroupMapper.I.map(forwardGroupDto));
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MessageForwardGroupDto> postNewMessageForwardGroup(@RequestBody final MessageForwardGroupDto forwardGroupDto) {
+        return ResponseEntity.ok(
+                RESTPortMapper.I.map(
+                        forwardGroupService.add(RESTPortMapper.I.map(forwardGroupDto))
+                )
+        );
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<Void> deleteMessageForwardGroup(@PathVariable final String name) {
-        forwardGroupService.deleteByName(name);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MessageForwardGroupDto> deleteMessageForwardGroup(@PathVariable final String name) {
+        return ResponseEntity.ok(RESTPortMapper.I.map(forwardGroupService.deleteByName(name)));
     }
 }

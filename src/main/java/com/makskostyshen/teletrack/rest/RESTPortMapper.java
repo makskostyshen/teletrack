@@ -26,4 +26,8 @@ public interface RESTPortMapper {
     default MessageForwardGroupDto map(MessageForwardGroup forwardGroup) {
         return MessageForwardGroupMapper.I.map(forwardGroup);
     }
+
+    default MessageForwardGroup map(MessageForwardGroupDto forwardGroupDto) {
+        return MessageForwardGroupMapper.I.map(forwardGroupDto);
+    }
 }

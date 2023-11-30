@@ -1,7 +1,7 @@
 package com.makskostyshen.teletrack.application.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.makskostyshen.teletrack.application.message.analyzer.criterion.Criterion;
+import com.makskostyshen.teletrack.application.message.criterion.Criterion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

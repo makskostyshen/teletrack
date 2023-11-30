@@ -1,4 +1,4 @@
-package com.makskostyshen.teletrack.application.message.analyzer.criterion;
+package com.makskostyshen.teletrack.application.message.criterion;
 
 import com.makskostyshen.teletrack.application.model.Message;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package com.makskostyshen.teletrack.application.message.forward.group;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.makskostyshen.teletrack.application.exception.MessageForwardGroupParsingException;
-import com.makskostyshen.teletrack.application.message.analyzer.criterion.*;
+import com.makskostyshen.teletrack.application.message.criterion.*;
 import com.makskostyshen.teletrack.application.model.MessageForwardGroup;
 import com.makskostyshen.teletrack.rest.dto.MessageForwardGroupDto;
 import org.mapstruct.Mapper;
@@ -34,6 +34,12 @@ public abstract class MessageForwardGroupMapper {
     }
 
     private Criterion mapCriterion(final JsonNode jsonNode) {
+        return jsonNode != null
+                ? mapNodeCriterion(jsonNode)
+                : new EmptyCriterion();
+    }
+
+    private Criterion mapNodeCriterion(final JsonNode jsonNode) {
         JsonNode innerNode;
         innerNode = jsonNode.get("and");
         if (innerNode != null) {
@@ -63,18 +69,18 @@ public abstract class MessageForwardGroupMapper {
     }
 
     private Criterion mapNotCriterion(final JsonNode jsonNode) {
-        return new NotCriterion(mapCriterion(jsonNode));
+        return new NotCriterion(mapNodeCriterion(jsonNode));
     }
 
     private Criterion mapOrCriterion(final JsonNode jsonNode) {
         List<Criterion> criteria = new ArrayList<>();
-        jsonNode.forEach(innerNode -> criteria.add(mapCriterion(innerNode)));
+        jsonNode.forEach(innerNode -> criteria.add(mapNodeCriterion(innerNode)));
         return new OrCriterion(criteria);
     }
 
     private Criterion mapAndCriterion(final JsonNode jsonNode) {
         List<Criterion> criteria = new ArrayList<>();
-        jsonNode.forEach(innerNode -> criteria.add(mapCriterion(innerNode)));
+        jsonNode.forEach(innerNode -> criteria.add(mapNodeCriterion(innerNode)));
         return new AndCriterion(criteria);
     }
 }
