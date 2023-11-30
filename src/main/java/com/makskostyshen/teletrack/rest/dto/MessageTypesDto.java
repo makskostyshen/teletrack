@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class MessageTypesResponseDto {
-    private List<MessageTypeResponseDto> messageTypes;
+public class MessageTypesDto {
+    private List<MessageTypeDto> messageTypes;
 }

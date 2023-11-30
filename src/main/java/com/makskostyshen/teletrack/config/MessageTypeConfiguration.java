@@ -1,24 +1,22 @@
 package com.makskostyshen.teletrack.config;
 
-import com.makskostyshen.teletrack.application.exception.MessageTypeParsingException;
+import com.makskostyshen.teletrack.application.message.type.MessageTypeMapper;
 import com.makskostyshen.teletrack.application.message.type.MessageTypeService;
-import com.makskostyshen.teletrack.application.message.type.parser.MessageTypeParser;
-import com.makskostyshen.teletrack.application.model.MessageType;
+import com.makskostyshen.teletrack.rest.dto.MessageTypeDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class MessageTypeConfiguration {
-    private final MessageTypeParser messageTypeParser;
+    private final MessageTypeFileReader messageTypeFileReader;
     private final MessageTypeService messageTypeService;
 
     @Value("${app.message.types.configFile}")
@@ -26,17 +24,14 @@ public class MessageTypeConfiguration {
 
     @PostConstruct
     public void populateMessageTypes() {
-        String content = readFileContent(configFilePath);
-        List<MessageType> messageTypes = messageTypeParser.parseMultiple(content);
-        messageTypeService.addAll(messageTypes);
-    }
+        Optional<List<MessageTypeDto>> dtosOptional = messageTypeFileReader.read(configFilePath);
 
-    private String readFileContent(final String filePath) {
-        try {
-            Path path = Paths.get(filePath);
-            return new String(Files.readAllBytes(path));
-        } catch (IOException e) {
-            throw new MessageTypeParsingException("failed to parse message types file", e);
-        }
+        dtosOptional.ifPresentOrElse(
+                dtos -> {
+                    dtos.forEach(dto -> messageTypeService.add(MessageTypeMapper.I.map(dto)));
+                    log.info("Message type configuration file is loaded");
+                },
+                () -> log.info("Message type configuration file is not loaded")
+        );
     }
 }

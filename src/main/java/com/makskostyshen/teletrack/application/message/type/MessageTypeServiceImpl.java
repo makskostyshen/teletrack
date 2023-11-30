@@ -22,14 +22,7 @@ public class MessageTypeServiceImpl implements MessageTypeService {
     }
 
     @Override
-    public void removeByName(final String name) {
+    public void deleteByName(final String name) {
         inMemoryMessageTypeRegistry.remove(name);
-    }
-
-    @Override
-    public void addAll(final List<MessageType> messageTypes) {
-        messageTypes.forEach(messageType -> {
-            inMemoryMessageTypeRegistry.put(messageType.getName(), messageType);
-        });
     }
 }

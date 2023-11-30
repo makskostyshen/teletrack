@@ -9,7 +9,5 @@ public interface MessageTypeService {
 
     void add(MessageType messageType);
 
-    void removeByName(String name);
-
-    void addAll(List<MessageType> messageTypes);
+    void deleteByName(String name);
 }
