@@ -20,7 +20,7 @@ public class MessageForwardGroupConfiguration {
     private final MessageForwardGroupFileReader forwardGroupFileReader;
     private final MessageForwardGroupService forwardGroupService;
 
-    @Value("${app.message.types.configFile}")
+    @Value("${app.messages.forward.group.config-file}")
     private String configFilePath;
 
     @PostConstruct
