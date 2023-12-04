@@ -1,5 +1,7 @@
 package com.makskostyshen.teletrack.rest.controller;
 
+import com.makskostyshen.teletrack.application.exception.IllegalAuthenticationActionException;
+import com.makskostyshen.teletrack.application.model.AuthorizationState;
 import com.makskostyshen.teletrack.application.telegram.TelegramAPI;
 import com.makskostyshen.teletrack.rest.RESTPortMapper;
 import com.makskostyshen.teletrack.rest.dto.AuthenticationCodeDto;
@@ -18,12 +20,21 @@ public class AuthenticationController {
 
     @PostMapping("/phone")
     public ResponseEntity<Void> sendAuthenticationPhoneNumber(final @RequestBody AuthenticationPhoneDto parameters) {
+        if (telegramApplicationProperties.getAuthorizationState() != AuthorizationState.WAIT_PHONE_NUMBER) {
+            throw new IllegalAuthenticationActionException(
+                    "Could not send phone number, because of inappropriate auth state"
+            );
+        }
         telegramAPI.sendAuthenticationPhoneNumber(RESTPortMapper.I.map(parameters));
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/code")
     public ResponseEntity<Void> sendAuthenticationCode(final @RequestBody AuthenticationCodeDto parameters) {
+        if (telegramApplicationProperties.getAuthorizationState() != AuthorizationState.WAIT_PHONE_CODE) {
+            throw new IllegalAuthenticationActionException(
+                    "Could not send phone code, because of inappropriate auth state");
+        }
         telegramAPI.sendAuthenticationCode(RESTPortMapper.I.map(parameters));
         return ResponseEntity.ok().build();
     }
