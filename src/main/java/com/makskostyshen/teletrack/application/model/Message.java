@@ -14,4 +14,5 @@ public class Message {
     private Long chatId;
     private Long threadId;
     private String textContent;
+    private int timeSeconds;
 }

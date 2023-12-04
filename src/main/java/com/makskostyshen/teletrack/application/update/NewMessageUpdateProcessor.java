@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -39,7 +40,10 @@ public class NewMessageUpdateProcessor implements TelegramUpdateProcessor<NewMes
 
     private Message createPseudoForwardMessage(final NewMessageUpdate update, final Long targetChatId) {
 
-        String dateTimeValue = LocalDateTime.now(ZoneId.of(timezoneId)).format(dateTimeFormatter);
+        String dateTimeValue = LocalDateTime.ofInstant(
+                Instant.ofEpochSecond(update.getMessage().getTimeSeconds()),
+                ZoneId.of(timezoneId)
+        ).format(dateTimeFormatter);
 
         String sourceChatTitle = chatService.getById(update.getMessage().getChatId()).getTitle();
 

@@ -40,6 +40,7 @@ public abstract class TelegramMapper {
 
     @Mapping(target = "threadId", source = "messageThreadId")
     @Mapping(target = "textContent", source = "message.content")
+    @Mapping(target = "timeSeconds", source = "date")
     public abstract Message map(TdApi.Message message);
 
     public abstract NewMessageUpdate map(TdApi.UpdateNewMessage updateNewMessage);
