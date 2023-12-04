@@ -1,5 +1,6 @@
 package com.makskostyshen.teletrack.rest;
 
+import com.makskostyshen.teletrack.application.exception.IllegalAuthenticationActionException;
 import com.makskostyshen.teletrack.application.exception.MessageForwardGroupAlreadyExistsException;
 import com.makskostyshen.teletrack.application.exception.MessageForwardGroupNotFoundException;
 import com.makskostyshen.teletrack.application.exception.MessageForwardGroupParsingException;
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(MessageForwardGroupParsingException.class)
     public ResponseEntity<ErrorDto> handleForwardGroupParsingException(final MessageForwardGroupParsingException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorDto(e.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalAuthenticationActionException.class)
+    public ResponseEntity<ErrorDto> handleIllegalAuthenticationActionException(final IllegalAuthenticationActionException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorDto(e.getMessage()));

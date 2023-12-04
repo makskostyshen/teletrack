@@ -40,6 +40,7 @@ public abstract class TelegramMapper {
 
     @Mapping(target = "threadId", source = "messageThreadId")
     @Mapping(target = "textContent", source = "message.content")
+    @Mapping(target = "timeSeconds", source = "date")
     public abstract Message map(TdApi.Message message);
 
     public abstract NewMessageUpdate map(TdApi.UpdateNewMessage updateNewMessage);
@@ -87,5 +88,21 @@ public abstract class TelegramMapper {
         }
         log.warn("Cannot properly obtain text content from message: {}", content.toString());
         return "";
+    }
+
+    @Mapping(target = "messageThreadId", source = "threadId")
+    @Mapping(target = "inputMessageContent", expression = "java(mapToInputMessageText(message.getTextContent()))")
+    public abstract TdApi.SendMessage map(Message message);
+
+
+    protected TdApi.InputMessageText mapToInputMessageText(final String textContent) {
+        return new TdApi.InputMessageText(
+                new TdApi.FormattedText(
+                        textContent,
+                        new TdApi.TextEntity[]{}
+                ),
+                false,
+                false
+        );
     }
 }

@@ -3,21 +3,23 @@ package com.makskostyshen.teletrack.application.chat;
 import com.makskostyshen.teletrack.application.model.Chat;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ChatServiceImpl implements ChatService {
-    private final Set<Chat> inMemoryChatRegistry = new HashSet<>();
+    private final Map<Long, Chat> inMemoryChatRegistry = new HashMap<>();
     @Override
     public List<Chat> getAll() {
-        return new ArrayList<>(inMemoryChatRegistry);
+        return new ArrayList<>(inMemoryChatRegistry.values());
     }
 
     @Override
     public void add(final Chat chat) {
-        inMemoryChatRegistry.add(chat);
+        inMemoryChatRegistry.put(chat.getId(), chat);
+    }
+
+    @Override
+    public Chat getById(final Long id) {
+        return inMemoryChatRegistry.get(id);
     }
 }

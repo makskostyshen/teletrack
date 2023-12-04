@@ -25,7 +25,7 @@ public class MessageForwardGroupServiceImpl implements MessageForwardGroupServic
             return forwardGroup;
         }
         throw new MessageForwardGroupAlreadyExistsException(
-                String.format("Could now add message forward group %s: it already exists", forwardGroup.getName()));
+                String.format("Could not add message forward group %s: it already exists", forwardGroup.getName()));
     }
 
     @Override
@@ -34,6 +34,6 @@ public class MessageForwardGroupServiceImpl implements MessageForwardGroupServic
             return inMemoryMessageForwardGroupRegistry.remove(name);
         }
         throw new MessageForwardGroupNotFoundException(
-                String.format("Could now delete message forward group %s: it is not found", name));
+                String.format("Could not delete message forward group %s: it is not found", name));
     }
 }
