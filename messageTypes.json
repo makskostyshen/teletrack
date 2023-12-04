@@ -1,0 +1,29 @@
+[
+  {
+    "name": "test-group",
+    "targetChatsIds": [-1002084999999],
+    "sourceChatsIds": [-1001181888888, -1014111777777],
+    "criterion": {
+      "or": [
+        {
+          "containsText": "text1"
+        },
+        {
+          "containsText": "text2"
+        },
+        {
+          "and": [
+            {
+              "containsText": "text3"
+            },
+            {
+              "not": {
+                "containsText": "text4"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

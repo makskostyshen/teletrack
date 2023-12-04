@@ -22,7 +22,7 @@ public class NewMessageUpdateProcessor implements TelegramUpdateProcessor<NewMes
     private final MessageAnalyzer messageAnalyzer;
     private final TelegramAPI telegramAPI;
 
-    @Value("${app.messages.forward.group.timezone-id}")
+    @Value("${app.messages.forward.group.timezone-id:Europe/Kyiv}")
     private String timezoneId;
 
     @Override
