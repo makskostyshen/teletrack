@@ -49,7 +49,7 @@
 		<!--This dependency is needed to be built locally-->
 		<dependency>
 			<groupId>com.teletrack</groupId>
-			<artifactId>telegram-library</artifactId>
+			<artifactId>telegram-library-ubuntu</artifactId>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>

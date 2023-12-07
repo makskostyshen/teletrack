@@ -101,7 +101,7 @@ public abstract class TelegramMapper {
                         textContent,
                         new TdApi.TextEntity[]{}
                 ),
-                false,
+                new TdApi.LinkPreviewOptions(),
                 false
         );
     }

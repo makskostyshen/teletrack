@@ -15,7 +15,7 @@ public class TelegramConfiguration {
     private final TelegramAPIImpl telegramAPI;
 
     @Bean
-    Client client(final Client.ResultHandler resultHandler) {
+    Client client(final Client.ResultHandler resultHandler) throws Client.ExecutionException {
         loadLibraries();
         Client.setLogMessageHandler(0, null);
         Client.execute(new TdApi.SetLogVerbosityLevel(0));
