@@ -31,6 +31,7 @@ public class TelegramConfiguration {
 
     private void loadLibraries() {
         try {
+            log.info("Directory/directories with lib location: {}", System.getProperty("java.library.path"));
             String os = System.getProperty("os.name");
             if (os != null && os.toLowerCase().startsWith("windows")) {
                 System.loadLibrary("libcrypto-1_1-x64");
