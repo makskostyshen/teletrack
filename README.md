@@ -10,7 +10,7 @@ It is built on fully functional Telegram client library - [TdLib](https://core.t
 
 You need to have [Java 17](https://www.javatpoint.com/how-to-set-path-in-java) and [Apache Maven](https://www.javatpoint.com/how-to-install-maven) correctly installed.
 
-Implementation of TdLib is OS dependent. As Windows x64 user, I've already built library version for Windows x64. So if you have this OS - process of installation will be simplified.
+Implementation of TDLib is OS dependent. TDLib is already built for Windows x64 and Ubuntu 22 systems - in this case the installation process is simplified. If you want to use this application on other OS - you should build the library by yourself.
 
 ### Windows x64
 
@@ -21,6 +21,23 @@ cd <repository location>
 git clone https://github.com/makskostyshen/teletrack.git
 mvn install:install-file -Dfile="teletrack/windows64/tdlib.jar" -DgroupId=com.teletrack -Dar
 tifactId=telegram-library -Dversion=1.0 -Dpackaging=jar
+robocopy windows64/tdlib tdlib /E
+```
+
+### Ubuntu 22
+
+Install [libc++-dev](https://howtoinstall.co/package/libc++-dev) library
+
+Execute commands:
+
+```
+cd <repository location>
+git clone https://github.com/makskostyshen/teletrack.git
+git checkout master-ubuntu
+mvn install:install-file -Dfile="teletrack/ubuntu/tdlib-ubuntu.jar" -DgroupId=com.teletrack -Dar
+tifactId=telegram-library-ubuntu -Dversion=1.0 -Dpackaging=jar
+cp -r ubuntu/tdlib tdlib
+
 ```
 
 ### Other OS
@@ -29,15 +46,15 @@ tifactId=telegram-library -Dversion=1.0 -Dpackaging=jar
 
 2. Clone this repository. Copy ``/tdlib`` folder from built library project to root of created repository.
 
-3. Build .jar file from generated classes and create a Maven artifact. Execute:
-   
     ```
     cd <repository location>
     jar cf tdlib.jar -C tdlib/bin .
     mvn install:install-file -Dfile="tdlib.jar" -DgroupId=com.teletrack -Dar
     tifactId=telegram-library -Dversion=1.0 -Dpackaging=jar
+    mvn clean install
+    java -Djava.library.path="tdlib/bin" -jar "target/teletrack-0.0.1-SNAPSHOT.jar"
     ```
-
+   
 ## Configuration
 
 1. Create your Telegram Api: https://core.telegram.org/api/obtaining_api_id
@@ -47,6 +64,14 @@ tifactId=telegram-library -Dversion=1.0 -Dpackaging=jar
    - ``app.messages.forward.group.config-file`` - file name of message forward groups configuration. default: messageTypes.json
    - ``app.messages.forward.group.timezone-id`` - [timezone id](https://docs.oracle.com/javase/8/docs/api/java/time/ZoneId.html). Default: Europe/Kyiv
 3. Fill the [message forward groups](#message-forward-group) file configuration
+
+## Launch
+Execute commands:
+
+```
+mvn clean install
+java -Djava.library.path="tdlib/bin" -jar "target/teletrack-0.0.1-SNAPSHOT.jar"
+```
 
 ## Description
 
