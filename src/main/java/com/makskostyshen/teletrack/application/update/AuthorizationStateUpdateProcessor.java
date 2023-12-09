@@ -1,10 +1,10 @@
 package com.makskostyshen.teletrack.application.update;
 
+import com.makskostyshen.teletrack.application.auth.AuthorizationService;
 import com.makskostyshen.teletrack.application.model.AuthorizationState;
 import com.makskostyshen.teletrack.application.model.update.AuthorizationStateUpdate;
-import com.makskostyshen.teletrack.config.TDLibParameters;
 import com.makskostyshen.teletrack.application.telegram.TelegramAPI;
-import com.makskostyshen.teletrack.application.model.TelegramApplicationProperties;
+import com.makskostyshen.teletrack.config.TDLibParameters;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AuthorizationStateUpdateProcessor implements TelegramUpdateProcessor<AuthorizationStateUpdate> {
-    private final TelegramApplicationProperties properties;
+    private final AuthorizationService authorizationService;
     private final TelegramAPI telegramAPI;
     private final TDLibParameters tdLibParameters;
 
@@ -25,6 +25,6 @@ public class AuthorizationStateUpdateProcessor implements TelegramUpdateProcesso
         if (updateState.getState() == AuthorizationState.UNDEFINED) {
             log.warn("Authorization state update is not recognized: {}", updateState.getState());
         }
-        properties.setAuthorizationState(updateState.getState());
+        authorizationService.setAuthorizationState(updateState.getState());
     }
 }

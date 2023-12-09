@@ -153,17 +153,17 @@ So changes, that have been made using endpoints or data that have been obtained 
 
 ### Auth
 
-- `GET: /auth/state` - get current authentication state.
-Possible authentication states: `READY`, `WAIT_PHONE_NUMBER`, `WAIT_PHONE_CODE`
+- `GET: /auth/state` - get current authorization state.
+Possible authorization states: `READY`, `WAIT_PHONE_NUMBER`, `WAIT_PHONE_CODE`
 Application handles updates only in ready state. Other states indicates invoking appropriate actions
 
-- `POST: /auth/phone` - send phone number. Body:
+- `POST: /auth/phone` - process phone number for authorization. Body:
   ```
     {
-      "phoneNumber": "38097xxxxxxx"
+      "phoneNumber": "380xxxxxxxxx"
     }
     ```
-- `POST: /auth/code` - send code, received by phone number. Body:
+- `POST: /auth/code` - process authorization code, received by phone number. Body:
   ```
     {
       "code": "Super secret code"
