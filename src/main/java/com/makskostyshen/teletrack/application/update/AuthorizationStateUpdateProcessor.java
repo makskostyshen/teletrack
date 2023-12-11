@@ -22,9 +22,6 @@ public class AuthorizationStateUpdateProcessor implements TelegramUpdateProcesso
         if (updateState.getState() == AuthorizationState.WAIT_TDLIB_PARAMETERS) {
             telegramAPI.sendTDLibParameters(tdLibParameters);
         }
-        if (updateState.getState() == AuthorizationState.UNDEFINED) {
-            log.warn("Authorization state update is not recognized: {}", updateState.getState());
-        }
         authorizationService.setAuthorizationState(updateState.getState());
     }
 }

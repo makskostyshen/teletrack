@@ -18,6 +18,8 @@ public interface TelegramAPI {
 
     void sendForwardMessageRequest(ForwardMessage forwardMessage);
 
+    void sendLogOutRequest();
+
     void sendMessage(Message message);
 }
 

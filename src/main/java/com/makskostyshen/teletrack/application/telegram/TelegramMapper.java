@@ -25,7 +25,8 @@ public abstract class TelegramMapper {
                     TdApi.AuthorizationStateWaitTdlibParameters.class, AuthorizationState.WAIT_TDLIB_PARAMETERS,
                     TdApi.AuthorizationStateWaitPhoneNumber.class, AuthorizationState.WAIT_PHONE_NUMBER,
                     TdApi.AuthorizationStateWaitCode.class, AuthorizationState.WAIT_PHONE_CODE,
-                    TdApi.AuthorizationStateReady.class, AuthorizationState.READY
+                    TdApi.AuthorizationStateReady.class, AuthorizationState.READY,
+                    TdApi.AuthorizationStateLoggingOut.class, AuthorizationState.LOGGING_OUT
             );
 
     private final Map<Class<?>, ChatType> chatTypeRegistry =
@@ -49,10 +50,13 @@ public abstract class TelegramMapper {
     public abstract AuthorizationStateUpdate map(TdApi.UpdateAuthorizationState state);
 
     public AuthorizationState map(final TdApi.AuthorizationState authorizationState) {
-        return authorizationStateRegistry.getOrDefault(
-                authorizationState.getClass(),
-                AuthorizationState.UNDEFINED
-        );
+        AuthorizationState state = authorizationStateRegistry.get(authorizationState.getClass());
+
+        if (state == null) {
+            log.warn("Authorization state update is not recognized: {}", authorizationState.getClass());
+            return AuthorizationState.UNDEFINED;
+        }
+        return state;
     }
 
     public abstract NewChatUpdate map(TdApi.UpdateNewChat updateNewChat);

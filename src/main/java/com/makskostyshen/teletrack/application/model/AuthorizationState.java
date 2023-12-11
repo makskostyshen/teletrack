@@ -5,5 +5,6 @@ public enum AuthorizationState {
     UNDEFINED,
     WAIT_TDLIB_PARAMETERS,
     WAIT_PHONE_NUMBER,
-    WAIT_PHONE_CODE
+    WAIT_PHONE_CODE,
+    LOGGING_OUT
 }

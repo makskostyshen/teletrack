@@ -12,5 +12,7 @@ public interface AuthorizationService {
 
     void processAuthenticationCode(AuthenticationCode authenticationCode);
 
+    void processLogOut();
+
     void setAuthorizationState(AuthorizationState authorizationState);
 }

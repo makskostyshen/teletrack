@@ -154,7 +154,7 @@ So changes, that have been made using endpoints or data that have been obtained 
 ### Auth
 
 - `GET: /auth/state` - get current authorization state.
-Possible authorization states: `READY`, `WAIT_PHONE_NUMBER`, `WAIT_PHONE_CODE`
+Possible authorization states: `READY`, `WAIT_PHONE_NUMBER`, `WAIT_PHONE_CODE`, `LOGGING_OUT`
 Application handles updates only in ready state. Other states indicates invoking appropriate actions
 
 - `POST: /auth/phone` - process phone number for authorization. Body:
@@ -169,6 +169,8 @@ Application handles updates only in ready state. Other states indicates invoking
       "code": "Super secret code"
     }
     ```
+- `POST: /auth/logout` - log out
+
 ### Chats
 
 - `GET: /chats` - get chats. Chat is being saved, if update with this chat is received

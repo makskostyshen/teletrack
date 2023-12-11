@@ -30,4 +30,10 @@ public class AuthController {
     public ResponseEntity<String> getAuthorizationState() {
         return ResponseEntity.ok(authorizationService.getAuthorizationState().name());
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logOut() {
+        authorizationService.processLogOut();
+        return ResponseEntity.ok().build();
+    }
 }

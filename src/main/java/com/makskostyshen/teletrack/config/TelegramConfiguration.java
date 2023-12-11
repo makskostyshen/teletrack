@@ -1,5 +1,6 @@
 package com.makskostyshen.teletrack.config;
 
+import com.makskostyshen.teletrack.application.telegram.DelegatingResultHandler;
 import com.makskostyshen.teletrack.application.telegram.TelegramAPIImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +16,8 @@ public class TelegramConfiguration {
     private final TelegramAPIImpl telegramAPI;
 
     @Bean
-    Client client(final Client.ResultHandler resultHandler) {
+    public Client client(final Client.ResultHandler resultHandler) {
         loadLibraries();
-        Client.setLogMessageHandler(0, null);
         Client.execute(new TdApi.SetLogVerbosityLevel(0));
         Client.execute(new TdApi.SetLogStream(new TdApi.LogStreamFile("tdlib.log", 134217728L, false)));
 

@@ -43,6 +43,11 @@ public class TelegramAPIImpl implements TelegramAPI {
     }
 
     @Override
+    public void sendLogOutRequest() {
+        send(new TdApi.LogOut());
+    }
+
+    @Override
     public void sendMessage(Message message) {
         send(TelegramMapper.I.map(message));
     }
